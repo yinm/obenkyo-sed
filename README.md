@@ -1,1 +1,1 @@
-# obenkyo-sed
+sedのお勉強リポジトリです。
