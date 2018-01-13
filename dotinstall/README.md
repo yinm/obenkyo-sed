@@ -293,4 +293,68 @@ bash-3.2$ sed 'y/to/OT/' names.txt
 
 ```
 
+## #07 sコマンドで置換してみよう
+
+### `s`
+* 対象文字列を置換する (デフォルトでは、置換するのは最初にマッチした文字列のみ)
+* 構文は、`y/対象文字列/置換文字列/フラグ`
+
+```sh
+bash-3.2$ sed 's/apple/Apple/' items.txt
+1 taguchi Apple, Apple, apple, grape
+2 fkoji Banana, Apple, Apple, lemon
+3 dotinstall Grape, Apple, strawberry
+4 takahashi cherry, pear, kiwi
+5 yasuda cherry, Cherry
+
+```
+
+* `g`フラグを指定することで全体を対象にできる
+
+```sh
+bash-3.2$ sed 's/apple/Apple/g' items.txt
+1 taguchi Apple, Apple, Apple, grape
+2 fkoji Banana, Apple, Apple, lemon
+3 dotinstall Grape, Apple, strawberry
+4 takahashi cherry, pear, kiwi
+5 yasuda cherry, Cherry
+
+```
+
+* 数字をフラグに指定することで、n番目にマッチした文字列を対象にすることもできる
+
+```sh
+bash-3.2$ sed 's/apple/Apple/2' items.txt
+1 taguchi Apple, apple, Apple, grape
+2 fkoji Banana, apple, Apple, lemon
+3 dotinstall Grape, apple, strawberry
+4 takahashi cherry, pear, kiwi
+5 yasuda cherry, Cherry
+
+```
+
+* `i`フラグを指定することで、大文字小文字を区別しない
+
+```sh
+bash-3.2$ sed 's/apple/Ringo/ig' items.txt
+1 taguchi Ringo, Ringo, Ringo, grape
+2 fkoji Banana, Ringo, Ringo, lemon
+3 dotinstall Grape, Ringo, strawberry
+4 takahashi cherry, pear, kiwi
+5 yasuda cherry, Cherry
+
+```
+
+* 同様のことを正規表現でも書ける
+
+```sh
+bash-3.2$ sed 's/[aA]pple/Ringo/g' items.txt
+1 taguchi Ringo, Ringo, Ringo, grape
+2 fkoji Banana, Ringo, Ringo, lemon
+3 dotinstall Grape, Ringo, strawberry
+4 takahashi cherry, pear, kiwi
+5 yasuda cherry, Cherry
+
+```
+
 
