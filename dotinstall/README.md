@@ -1,4 +1,5 @@
-[sed入門 (全10回) - プログラミングならドットインストール](https://dotinstall.com/lessons/basic_sed)をやってます。
+* [sed入門 (全10回) - プログラミングならドットインストール](https://dotinstall.com/lessons/basic_sed)をやってます。
+* 方言がつらかったので、[Macでsedするならgnu-sedを入れておくべき | メモ帳代わりのブログ](http://www.absolute-keitarou.net/blog/?p=586)を参考に、gnu-sedを入れた
 
 ## #02 はじめてのsed
 
@@ -152,6 +153,105 @@ bash-3.2$ sed '/i$/d' names.txt
 bash-3.2$ sed 'd' names.txt
 ```
 
+## #05 p/a/iコマンドを使ってみよう
+
+### `p`
+* addressにマッチした行を出力する
+* printの略
+
+```sh
+bash-3.2$ sed '3p' names.txt
+1 taguchi
+2 fkoji
+3 dotinstall
+3 dotinstall
+4 takahashi
+5 yasuda
+
+```
+
+* `-n`と組み合わせて、パターンスペースの動作を抑えて使うことが多い (マッチした以外の行を表示するのを防ぐため)
+
+```sh
+bash-3.2$ sed -n '3p' names.txt
+3 dotinstall
+```
+
+### `q`
+* addressにマッチした時点で処理を終了する
+* quitの略
+
+```sh
+bash-3.2$ sed '3q' names.txt
+1 taguchi
+2 fkoji
+3 dotinstall
+```
+
+### `i`
+* addressにマッチした行の前に、行を追加する
+* 追加する行の文字列は、`\(バックスラッシュ)`の後に続ける
+* insertの略 
+
+```sh
+bash-3.2$ sed '1i\--- start ---' names.txt
+--- start ---
+1 taguchi
+2 fkoji
+3 dotinstall
+4 takahashi
+5 yasuda
+
+```
+
+### `a`
+* addressにマッチした行の後に、行を追加する
+* 追加する行の文字列は、`\(バックスラッシュ)`の後に続ける (`i`と同じ)
+* appendの略 
+
+```sh
+bash-3.2$ sed -e '1i\--- start ---' -e '$a\--- end ---' names.txt
+--- start ---
+1 taguchi
+2 fkoji
+3 dotinstall
+4 takahashi
+5 yasuda
+
+--- end ---
+```
+
+* 最終行の空行も取り除いたバージョン (`/^$/d`の正規表現で、空行を除く)
+
+```sh
+bash-3.2$ sed -e '1i\--- start ---' -e '$a\--- end ---' -e '/^$/d' names.txt
+--- start ---
+1 taguchi
+2 fkoji
+3 dotinstall
+4 takahashi
+5 yasuda
+--- end ---
+```
+
+### `/regexp/=`
+* addressにマッチした行数を表示する
+
+```sh
+bash-3.2$ cat names_some_dotinstall.txt
+1 taguchi
+2 fkoji
+3 dotinstall
+4 takahashi
+5 yasuda
+6 dotinstall
+7 dotinstall
+
+bash-3.2$ sed -n '/dotinstall/=' names_some_dotinstall.txt
+3
+6
+7
+```
 
 
 
