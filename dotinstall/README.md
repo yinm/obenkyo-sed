@@ -14,11 +14,13 @@ $ cat names.txt
 3 dotinstall
 4 takahashi
 5 yasuda
+
 $ sed -e '3d' names.txt
 1 taguchi
 2 fkoji
 4 takahashi
 5 yasuda
+
 ```
 
 * コマンドが1個だけなら省略可能 (e.g. `sed '3d' names.txt`)
@@ -34,6 +36,7 @@ $ cat names.txt
 2 fkoji
 4 takahashi
 5 yasuda
+
 $ ls
 names.txt     names.txt.bak
 $ cat names.txt.bak
@@ -42,6 +45,7 @@ $ cat names.txt.bak
 3 dotinstall
 4 takahashi
 5 yasuda
+
 ```
 
 ### `-f`
@@ -55,13 +59,14 @@ $ sed -f ex1.sed names.txt
 2 fkoji
 4 takahashi
 5 yasuda
+
 ```
 
 ## #03 パターンスペースについて理解しよう
 
 ### sedの `-e expression` は、2つのもので構成されている
-* address: commandを実行する行
-* command: addressでマッチした行に対する処理
+* `address`: commandを実行する行
+* `command`: addressでマッチした行に対する処理
 * e.g. `sed -e '3d' names.txt` の場合
   * address: `3`
   * command: `d`(delete)
@@ -108,13 +113,13 @@ bash-3.2$ sed '1,3d' names.txt
 
 ### `~`
 * 最初の指定した行目から、次に指定した行飛ばしで処理する 
-* Macだと使えないっぽい
 
 ```sh
 bash-3.2$ sed '1~2d' names.txt
-sed: 1: "1~2d": invalid command code ~
-```
+2 fkoji
+4 takahashi
 
+```
 
 ### `$`
 * 最終行
