@@ -253,5 +253,44 @@ bash-3.2$ sed -n '/dotinstall/=' names_some_dotinstall.txt
 7
 ```
 
+## #06 yコマンドで置換してみよう
+
+### `y`
+* 対象文字を1文字ずつ置換する
+* 構文は、`y/対象文字/置換文字`
+
+```sh
+bash-3.2$ sed 'y/t/T/' names.txt
+1 Taguchi
+2 fkoji
+3 doTinsTall
+4 Takahashi
+5 yasuda
+
+```
+
+* 複数の対象文字・置換文字を指定することが可能
+* その場合は、対象文字と置換文字の記述順が対応する(文字列として判定するわけではない)
+
+```sh
+# t -> T
+# o -> O に置換する
+bash-3.2$ sed 'y/to/TO/' names.txt
+1 Taguchi
+2 fkOji
+3 dOTinsTall
+4 Takahashi
+5 yasuda
+
+# t -> O
+# o -> T に置換する
+bash-3.2$ sed 'y/to/OT/' names.txt
+1 Oaguchi
+2 fkTji
+3 dTOinsOall
+4 Oakahashi
+5 yasuda
+
+```
 
 
