@@ -362,4 +362,35 @@ bash-3.2$ sed 's/[aA]pple/Ringo/g' items.txt
 
 ```
 
+## #08 &や\1を使って置換してみよう
+
+### `&`
+* マッチした文字列を、置換後に使用できる
+
+```sh
+bash-3.2$ sed 's/[0-5] 【&】/' items.txt
+【1】 taguchi Apple, apple, apple, grape
+【2】 fkoji Banana, apple, Apple, lemon
+【3】 dotinstall Grape, apple, strawberry
+【4】 takahashi cherry, pear, kiwi
+【5】 yasuda cherry, Cherry
+
+```
+
+### `\n`
+* `()`でマッチしたものを、置換後に使用できる
+* 最初の`()`が`\1`と対応する
+* `()`はエスケープ(`\(バックスラッシュ)`)が必要なので注意
+
+```sh
+bash-3.2$ sed 's/\([0-5]\) \(.*\)/\2 【\1】/' items.txt
+taguchi Apple, apple, apple, grape 【1】
+fkoji Banana, apple, Apple, lemon 【2】
+dotinstall Grape, apple, strawberry 【3】
+takahashi cherry, pear, kiwi 【4】
+yasuda cherry, Cherry 【5】
+
+```
+
+
 
