@@ -422,7 +422,7 @@ yasuda cherry, Cherry 【5】
 ## #10 ホールドスペースを使ってみよう (2)
 
 ### ホールドスペースの処理
-* 
+* コメントで記載
 
 ```sh
 bash-3.2$ cat style.css
