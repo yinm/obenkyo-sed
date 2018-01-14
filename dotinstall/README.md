@@ -419,7 +419,9 @@ yasuda cherry, Cherry 【5】
 }
 ```
 
-### ``
+## #10 ホールドスペースを使ってみよう (2)
+
+### ホールドスペースの処理
 * 
 
 ```sh
@@ -433,14 +435,14 @@ bash-3.2$ cat style.css
 bash-3.2$ cat ex2.sed
 # color change
 
-/color: / {
-  h
-  s/color: /background: /
-  x
-}
-/background: / {
-  g
-}
+/color: / { # ps: color: red;
+  h        # ps: color: red; hs: color: red;
+  s/color: /background: /        # ps: background: red; hs: color: red;
+  x        # ps: color: red; hs: background: red;
+} # ps: color: red; を出力
+/background: / {  # ps: background: green; hs: background: red;
+  g        # ps: background: red; hs: background: red;
+} # # ps: background: red; を出力
 bash-3.2$ sed -f ex2.sed style.css
 #main {
   color: red;
