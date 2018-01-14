@@ -392,5 +392,64 @@ yasuda cherry, Cherry 【5】
 
 ```
 
+## #09 ホールドスペースを使ってみよう (1)
+
+### ホールドスペース
+* パターンスペースのさらに奥にある、裏バッファのようなもの
+* パターンスペースにあるものを退避させたり、退避したものをパターンスペースに返したりできる
+* 以下のようなコマンドがある
+
+* `h`: パターンスペース -> ホールドスペース (holdの略。退避)
+* `g`: ホールドスペース -> パターンスペース (getの略。退避をパターンスペースに返す)
+* `x`: 交換 (exchangeの略)
+
+### sedファイルのコメント
+* `#` を使うことでコメントできる
+
+```sed
+# color change
+
+/color: / {
+  h
+  s/color: /background: /
+  x
+}
+/background: / {
+  g
+}
+```
+
+### ``
+* 
+
+```sh
+bash-3.2$ cat style.css
+#main {
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+  background: green;
+}
+bash-3.2$ cat ex2.sed
+# color change
+
+/color: / {
+  h
+  s/color: /background: /
+  x
+}
+/background: / {
+  g
+}
+bash-3.2$ sed -f ex2.sed style.css
+#main {
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+  background: red;
+}
+```
+
+
 
 
